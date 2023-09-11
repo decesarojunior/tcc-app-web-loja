@@ -1,0 +1,135 @@
+@startuml
+title Diagrama de Classes - TCC - Alexandre
+
+abstract Pessoas{    
+    String nome    
+    String email
+    String telefone    
+    String cep
+    String logradouro
+    String bairro
+    String numero
+    String complemento
+    String observacoes
+    Date data_cadastro
+    String username     
+    String password
+    Date data_ultimo_login
+}
+class Clientes extends Pessoas{
+    String cpf 
+    String rg  
+    String cnpj
+    String ie
+}
+
+class Funcionarios extends Pessoas{
+
+    String numero_ctps
+    Date data_contratacao
+    Date data_demissao
+}
+class Perfis{
+    Integer id
+    String descricao
+}
+class Funcionalidades{
+    Integer id
+    String  descricao
+}
+
+class Produtos{
+   Integer id
+   String descricao
+   String observacoes
+   Float valor_custo
+   Float valor_aluguel
+   Float valor_venda
+}
+
+class Fotos{
+    Integer id
+    String descricao
+    String b64 
+}
+
+class TiposProduto{
+    Integer id
+    String nome  
+}
+
+class Reservas{
+    Integer id
+    Date data_inicio
+    Date data_fim    
+    Double valor
+    Double valor_entrega
+    Double valor_total
+    String observacoes
+}
+
+class StatusReserva{
+    EM_ANALISE, APROVADA, NEGADA
+}
+
+class Locacoes{
+    Integer id
+    Date data_retirada
+    Date data_previsao_entrega
+    Date data_entrega 
+    Date data_previsao_pagamento       
+    Double valor_total
+    Double valor_pago 
+    String observacoes 
+}
+
+class Parcelamentos{
+    Integer id
+    Integer numero_parcela
+    Date data_previsao_pagamento  
+    Date data_pagamento  
+    Double valor_total
+    Double valor_pago 
+}
+
+class Sitacao{
+    Integer id
+    String descricao 
+}
+class Acompanhamento{
+    Integer id
+    Integer sequencia_passo
+    Date data
+    String observacao
+}
+
+enum TiposPagamento{
+      NA_RETIDADA, ENTRADA_DEVOLUCAO, PARCELADO
+       
+}
+
+
+Reservas --> Clientes
+Reservas --> Funcionarios
+Reservas o--> Produtos
+Reservas --> StatusReserva
+
+Perfis o--> Funcionalidades
+Produtos *--> Fotos
+Produtos --> TiposProduto
+
+Locacoes *--> Parcelamentos
+Locacoes *--> Acompanhamento
+Acompanhamento --> Sitacao
+
+Locacoes --> TiposPagamento
+
+Funcionarios --> Perfis
+Funcionarios <-- Locacoes
+Reservas<--o Locacoes
+
+
+
+
+
+@enduml 
